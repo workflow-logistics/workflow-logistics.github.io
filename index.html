@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <title>KMs Catupiry</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, inicial-scale = 1.0">
+
+    <style>
+        html,
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+        }
+
+        #div_principal {
+            width: 100%;
+            padding: 15px;
+        }
+
+        input {
+            font-size: 1.2rem;
+            padding: 12px;
+        }
+
+        #initialScreen {
+            display: grid;
+            align-content: space-evenly;
+            justify-content: space-around;
+            align-items: center;
+            justify-items: center;
+            gap: 13px;
+        }
+
+        #grid_info {
+            position: relative;
+            bottom: 23vh;
+            width: 80vw;
+            height: 100vh;
+            max-height: 250px;
+            display: grid;
+            gap: 10px;
+            grid-template-columns: repeat(5, 150px);
+            border-color: black;
+            border: 1px solid;
+            justify-content: space-evenly;
+            align-content: space-between;
+            overflow: scroll;
+            grid-template-rows: auto;
+            padding: 5px;
+            justify-items: start;
+            align-items: baseline;
+            background-color: white;
+        }
+
+        .button_grid {
+            position: relative;
+            width: 75px;
+            left: 25%;
+
+        }
+
+        .option_label {
+            position: relative;
+            left: 30%
+        }
+
+        #div_form {
+            position: relative;
+            bottom: 74%;
+        }
+
+        #submit_form_button {
+            position: relative;
+            left: 10vw;
+            --😀: #032f05;
+            --😀😀: #0c6428;
+            --😀😀😀: #114b2763;
+            cursor: pointer;
+            width: 31vw;
+            height: 4vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            font-size: 1.125em;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #fff;
+            background: var(--😀);
+            border: 2px solid var(--😀😀);
+            border-radius: .75rem;
+            box-shadow: 0 8px 0 var(--😀😀);
+            transform: skew(-10deg);
+            transition: all .1s ease;
+            filter: drop-shadow(0 15px 20px var(--😀😀😀));
+        }
+
+        #submit_form_button:active {
+            letter-spacing: 0px;
+            transform: skew(-10deg) translateY(8px);
+            box-shadow: 0 0 0 var(--😀😀😀);
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="initialScreen" class="">
+        <img id="image_catupiry"
+            src="https://previews.dropbox.com/p/thumb/ACb40XQ1HVsKt_qhQQuSwBgPnNJEfUUdSOZEKIpm-iMuKJP9xYNd6RhPmlkCZI158vyvGrk5eYLffIhXcwyPVsBkRNmpAfMijdfUWOtRdNkCdR1XlcRDkbMYGmdLn3cghX61AdMJtt6ItYlljEOFmKm_DqbeST3ZF5Fi0vdx6G_H0ImgTvwalT3h9WxDudFmdlruiKtWtjeUFk2N6eSyyEL2iodkDOu_c0BH2oEaoXNopw-puRD0PQ8TbDdqrySu8bASRxh7gPtxoxd60WYWjUtBEj2ymuCaaasb6ThPn0xRJvRgDazoo74UWyj1t7TwiPVX3c4YSxeUsdGZqs5ijrVJ/p.png?is_prewarmed=true">
+
+        <div id="div_form">
+
+            <form id="form_info">
+                <label>Data:</label><br>
+                <input id="currentDate_input" type="date" /><br><br>
+                <label>Km Inicial: </label><br>
+                <input id="initialKm_input" type="number" /><br><br>
+                <label>Km Final:</label><br>
+                <input id="finalKm_input" type="number" /><br><br>
+                <button id="submit_form_button" type="button" onclick="save_info()"> Salvar</button>
+            </form>
+
+        </div>
+
+
+        <div id="grid_info">
+            <label>Data:</label>
+            <label>KM Inicial:</label>
+            <label>KM Final:</label>
+            <label>Km Percorridos:</label>
+            <label class="option_label">Opções:</label>
+        </div>
+
+
+
+    </div>
+
+</body>
+
+<script>
+    //script de salvamento das informações.
+    console.log("↓---------------LOG----------------↓");
+    console.log('storage --->', localStorage);
+
+    var id_edit_iten = null;
+
+    fill_grid();
+
+    function save_info() {
+
+        var info_json = {
+            "current_date": document.getElementById('currentDate_input').value,
+            "initial_km": document.getElementById('initialKm_input').value,
+            "final_km": document.getElementById('finalKm_input').value
+        };
+
+        if (id_edit_iten == null) {
+            localStorage.setItem(localStorage.length, JSON.stringify(info_json));
+        } else {
+            localStorage.setItem(id_edit_iten, JSON.stringify(info_json));
+            id_edit_iten = null;
+        }
+
+
+
+        clear_form();
+        clear_grid();
+        fill_grid();
+    }
+
+    function clear_form() {
+        document.getElementById('currentDate_input').value = "";
+        document.getElementById('initialKm_input').value = "";
+        document.getElementById('finalKm_input').value = "";
+    }
+
+
+    //---------------------------------------------------------------------------------------------//
+
+    //script da grid
+    function fill_grid() {
+        var fill_grid_info = localStorage;
+        var grid = document.getElementById('grid_info');
+
+        for (var i = 0; i < fill_grid_info.length; i++) {
+            var itens_info = Object.values(JSON.parse(fill_grid_info[i])); //transforma o json em um array
+            var itens_fragment = document.createDocumentFragment();
+            itens_info[0] = remake_date(itens_info[0]);
+
+            itens_info.forEach(itens_info => {
+                const new_element = document.createElement('label');
+                new_element.innerText = itens_info;
+                itens_fragment.appendChild(new_element);
+            });
+
+            var calculation_km_label = document.createElement('label');
+            calculation_km_label.innerText = calculation_km(itens_info[1], itens_info[2]);
+            itens_fragment.appendChild(calculation_km_label);
+
+            var button_grid = document.createElement('button');
+            button_grid.id = i;
+            button_grid.innerText = 'Editar';
+            button_grid.classList.add('button_grid');
+            button_grid.addEventListener('click', edit_button);
+            itens_fragment.appendChild(button_grid);
+
+            grid.appendChild(itens_fragment);
+        }
+    }
+
+    function calculation_km(initial_km, final_km) {
+        if (final_km == 0) {
+            return '---';
+        } else {
+            var total_km = final_km - initial_km;
+            return total_km;
+        }
+    }
+
+    function remake_date(date) {
+        var date_array = date.split('-');
+        var new_date = date_array[2] + '-' + date_array[1] + '-' + date_array[0];
+        return (new_date);
+    }
+
+    function clear_grid() {
+        var grid_main = document.getElementById('grid_info');
+
+        if (grid_main.childElementCount <= 5) {
+            return;
+        }
+
+        while (grid_main.childElementCount > 5) {
+            grid_main.removeChild(grid_main.lastChild);
+        }
+
+    }
+
+    function edit_button() {
+        var edit_iten = JSON.parse(localStorage.getItem(this.id));
+        console.log('iten ---->>>', edit_iten);
+
+        document.getElementById('currentDate_input').value = edit_iten.current_date;
+        document.getElementById('initialKm_input').value = edit_iten.initial_km;
+        document.getElementById('finalKm_input').value = edit_iten.final_km;
+        id_edit_iten = this.id;
+    }
+
+
+
+    //script de validação dos inputs do form.
+
+</script>
+
+
+
+
+</html>
