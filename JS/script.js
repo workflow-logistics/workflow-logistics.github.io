@@ -60,6 +60,8 @@ function fill_grid() {
         button_grid.addEventListener('click', edit_button);
         itens_fragment.appendChild(button_grid);
 
+        console.log(" fragment ---->", itens_fragment);
+        console.log('grid --->', grid);
         grid.appendChild(itens_fragment);
     }
 }
