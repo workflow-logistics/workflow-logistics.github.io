@@ -25,7 +25,7 @@ input {
 
 #grid_info {
     position: relative;
-    bottom: 23vh;
+    bottom: 19vh;
     width: 80vw;
     max-height: 250px;
     display: grid;
@@ -57,22 +57,21 @@ input {
 
 #div_form {
     position: relative;
-    bottom: 74%;
+    bottom: 66%;
 }
 
 #submit_form_button {
     position: relative;
-    left: 10vw;
+    left: 25%;
     --😀: #032f05;
     --😀😀: #0c6428;
     --😀😀😀: #114b2763;
     cursor: pointer;
-    width: 31vw;
-    height: 4vh;
+    width: 100px;
+    height: 38px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
     font-size: 1.125em;
     font-weight: 800;
     letter-spacing: 2px;
@@ -83,7 +82,6 @@ input {
     box-shadow: 0 8px 0 var(--😀😀);
     transform: skew(-10deg);
     transition: all .1s ease;
-    filter: drop-shadow(0 15px 20px var(--😀😀😀));
 }
 
 #submit_form_button:active {

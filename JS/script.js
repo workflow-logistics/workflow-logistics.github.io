@@ -21,8 +21,6 @@ function save_info() {
         id_edit_iten = null;
     }
 
-
-
     clear_form();
     clear_grid();
     fill_grid();
@@ -105,7 +103,5 @@ function edit_button() {
     document.getElementById('finalKm_input').value = edit_iten.final_km;
     id_edit_iten = this.id;
 }
-
-
 
 //script de validação dos inputs do form.
