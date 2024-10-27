@@ -1,6 +1,4 @@
 //script de salvamento das informações.
-console.log("↓---------------LOG----------------↓");
-console.log('storage --->', localStorage);
 
 var id_edit_iten = null;
 
@@ -96,12 +94,8 @@ function clear_grid() {
 
 function edit_button() {
     var edit_iten = JSON.parse(localStorage.getItem(this.id));
-    console.log('iten ---->>>', edit_iten);
-
     document.getElementById('currentDate_input').value = edit_iten.current_date;
     document.getElementById('initialKm_input').value = edit_iten.initial_km;
     document.getElementById('finalKm_input').value = edit_iten.final_km;
     id_edit_iten = this.id;
 }
-
-//script de validação dos inputs do form.
